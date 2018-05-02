@@ -12,6 +12,6 @@ before_script:
 script:
   - curl -O $otaLink
   - unzip $otaFileName.zip
-  - python3.6 otaExtractScript/payload_dumper.py $otaFileName/payload.bin
+  - python otaExtractScript/payload_dumper.py $otaFileName/payload.bin
   - cd otaExtractScript
   - ls -l
