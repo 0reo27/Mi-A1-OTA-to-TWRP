@@ -1,6 +1,5 @@
-language: android
+language: generic
 dist: trusty
-jdk: oraclejdk8
 sudo: required
 env:
   global:
@@ -13,8 +12,8 @@ before_script:
   - sudo apt-get upgrade
   - sudo apt-get install -y python3.6
   - sudo apt-get -y install python-pip
-  - pip --user install google
-  - pip --user install protobuf
+  - pip install --user google
+  - pip install --user protobuf
   
 script:
   - cd $TRAVIS_BUILD_DIR
