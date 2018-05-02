@@ -13,10 +13,9 @@ before_script:
   - sudo apt-get update
   - sudo apt-get upgrade
   - sudo apt-get install -y python3.6
-  - pip install protobuf
 script:
   - curl -O $otaLink
   - unzip $otaFileName.zip
-  - python otaExtractScript/payload_dumper.py $otaFileName/payload.bin
+  - python3.6 otaExtractScript/payload_dumper.py $otaFileName/payload.bin
   - cd otaExtractScript
   - ls -l
