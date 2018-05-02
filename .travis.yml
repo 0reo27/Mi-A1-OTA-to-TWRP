@@ -5,29 +5,34 @@ env:
   global:
     - >-
       otaLink=https://bigota.d.miui.com/8.4.28/miui_TISSOT_8.4.28_201ca5f229_8.1.zip
-    - otaFileName=miui_TISSOT_8.4.28_201ca5f229_8.1
-    - releaseName=8.4.28
 before_script:
   - 'echo | sudo add-apt-repository ppa:deadsnakes/ppa'
   - sudo apt-get update
   - sudo apt-get upgrade
   - sudo apt-get install -y python3.6
-  - curl -O https://bootstrap.pypa.io/get-pip.py
+  - 'curl -O https://bootstrap.pypa.io/get-pip.py'
   - sudo python3.6 get-pip.py
   - python3.6 -m pip install --user google
   - python3.6 -m pip install --user protobuf
-  
 script:
+  - export otaFileName="$(cut -d'/' -f5 <<<$otaLink)"
+  - export releaseName="$(cut -d'/' -f4 <<<$otaLink)"
   - cd $TRAVIS_BUILD_DIR
   - time curl -O $otaLink
-  - unzip $otaFileName.zip -d $otaFileName
+  - unzip $otaFileName -d extractedZip
   - mkdir -p 'otaExtractedFiles'
   - cd otaExtractedFiles
-  - python3.6 $TRAVIS_BUILD_DIR/otaExtractScript/payload_dumper.py $otaFileName/payload.bin
-  - zip -ur "$TRAVIS_BUILD_DIR/TWRP Update Template v2.zip" $TRAVIS_BUILD_DIR/otaExtractedFiles/*
+  - >-
+    python3.6 $TRAVIS_BUILD_DIR/otaExtractScript/payload_dumper.py
+    extractedZip/payload.bin
+  - >-
+    zip -ur "$TRAVIS_BUILD_DIR/TWRP Update Template v2.zip"
+    $TRAVIS_BUILD_DIR/otaExtractedFiles/*
   - cd $TRAVIS_BUILD_DIR/otaExtractedFiles
   - ls -l
-  - mv "$TRAVIS_BUILD_DIR/TWRP Update Template v2.zip" "$TRAVIS_BUILD_DIR/twrp-$releaseName.zip"
+  - >-
+    mv "$TRAVIS_BUILD_DIR/TWRP Update Template v2.zip"
+    "$TRAVIS_BUILD_DIR/twrp-$releaseName.zip"
   - cd $TRAVIS_BUILD_DIR
   - ls -l
 notifications:
