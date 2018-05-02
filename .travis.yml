@@ -1,6 +1,9 @@
 language: android
 dist: trusty
 sudo: required
+branches:
+  only:
+    - master
 env:
   global:
     - >-
@@ -25,6 +28,8 @@ script:
   - >-
     python3.6 $TRAVIS_BUILD_DIR/otaExtractScript/payload_dumper.py
     $TRAVIS_BUILD_DIR/extractedZip/payload.bin
+  - zip fastboot-$releaseName.zip boot.img modem.img system.img
+  - mv fastboot-$releaseName.zip $TRAVIS_BUILD_DIR/fastboot-$releaseName.zip
   - >-
     zip -ur "$TRAVIS_BUILD_DIR/TWRP Update Template v2.zip"
     $TRAVIS_BUILD_DIR/otaExtractedFiles/*
@@ -35,5 +40,15 @@ script:
     "$TRAVIS_BUILD_DIR/twrp-$releaseName.zip"
   - cd $TRAVIS_BUILD_DIR
   - ls -l
+deploy:
+  provider: releases
+  api_key:
+    secure: >-
+      u5ewz9jQArEs2Rpq7xOm9RzqWEMKE2asI4MPqT8vyOm+mcOp584QkDFkcOPSxl1YrYtLwPDfB3V+45VKJNruqJcHcWPoV15SSGQlawVnt+Gnl12S/g98wDmHBw+Wj1WTLtB1KJdM6nB9oQrfCOrG9UNcRbvPulKC0zIf5pifWYRIqKNxFk+txUygyIs8CszhvdiaPZNro1wsogxiazNvuJCjQ6cGZhADWXBIAMsZoDNmqxGBwypV+P/7yga0KX0mBsuxv2QTpmFKsmGyb3/1XB43SPhgrb6cBKMnn3ceWFOIxaiddeQ59pCkGzMg5lNNUqnXanIyzS/aVcZl2zsiyUsifTcnexxwFUHhdr31K1sNbJuPrKkBOS5VttVm6JWh+ubbnqnIrgwF6zKl8tnvwOq1SvML2xmwBAjVNGBXd251yjmtCy0x9in1dU0m4qbVfz2LWEhoGOkHVc8BsInicaXneFqlpREWxV4HbdsyF0cWJEPUNB+Ar6R84zvXZ/nlu8W1TneqaH9kcm5VYjwbLtlwtTOoMTmi3Gv52JIz1A0hWmoic96B4xewUgtDuGBJm2Lca1xpeZXwfXL0zMGYswExUAZfNePCyJiDI8ElvaFsOYQ9RP0gJhTMajN25BMDmd1P73h2IdcIk/54pE5Ol3bYJlTbykYlIEu+QZ24hZM=
+  file:
+    - $TRAVIS_BUILD_DIR/twrp-$releaseName.zip
+    - $TRAVIS_BUILD_DIR/fastboot-$releaseName.zip
+  on:
+    repo: 0reo27/Mi-A1-OTA-to-TWRP
 notifications:
   email: false
