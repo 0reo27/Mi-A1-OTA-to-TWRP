@@ -40,6 +40,7 @@ script:
     "$TRAVIS_BUILD_DIR/twrp-$releaseName.zip"
   - cd $TRAVIS_BUILD_DIR
   - ls -l
+  - echo 'The files are $TRAVIS_BUILD_DIR/twrp-$releaseName.zip and $TRAVIS_BUILD_DIR/fastboot-$releaseName.zip'
 deploy:
   provider: releases
   api_key:
