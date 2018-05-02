@@ -8,6 +8,8 @@ env:
   global:
     - >-
       otaLink=https://bigota.d.miui.com/8.4.28/miui_TISSOT_8.4.28_201ca5f229_8.1.zip
+    - secure: >-
+        upVN0AvMFXCGJlcCTb+0yJCtO6cWwOtacGhKxSnIX5J71BS6a7mMSp2e3LQfAcniqvIgN4QBM9ipWDxR2gdUW8EKyibUbTUosPol+i4H5LvaxZG5PAyM9RuTlwDg7x0oNkhd6OGxD9p0XcY+1IspMIm5n6zqAkxx422DFuXxU5NCSDyW4AvwgEX4YKgR/GTymtXXl15oz4yvMBtaRb+q54xqm0QL2/+0RJAPh091Pnuif7e5TM5mpn2M2mAdFSudCeqDI6LrIZCupbztZa5n6oCreeD1kQQAZ54xFufHJ58LMuiOJa5THNHem8DAxYqQNs78H+4jG2U4ZvOY0kYd5WlLrBBcMLVuzeu27c6jbUsVS3Go7xyKatiy7gIUkytoyRGnBgBX0wxed50q7vZTgBrb93sfdG/VE97c9f8pFmVBywnhKSfjvTZI+Pr5Cc/utYQmzl3Iaw6Jss/cNpz712dCC4BfWSulhTkNjnrxl4XmGEmiiY/0dEHybZnqfneL/fIugmuNzozzfkU8/znJu7K+y2zghwmjy8r2RtoRIGCV3Z87/uiOZGQesWNnBRVXfHcoF8cZsOtRE0wrGh3+/AzQYz/SHIibq4NRimhK5tU/CGzunCcuKkdBPxf4THr0mub4LpXV9FJq8mMFnuxIw1yJAZJYXeqvEuzIzUob76Q=
 before_script:
   - 'echo | sudo add-apt-repository ppa:deadsnakes/ppa'
   - sudo apt-get update
@@ -40,18 +42,20 @@ script:
     "$TRAVIS_BUILD_DIR/twrp-$releaseName.zip"
   - cd $TRAVIS_BUILD_DIR
   - ls -l
-  - echo 'The files are $TRAVIS_BUILD_DIR/twrp-$releaseName.zip and $TRAVIS_BUILD_DIR/fastboot-$releaseName.zip'
+  - >-
+    echo 'The files are $TRAVIS_BUILD_DIR/twrp-$releaseName.zip and
+    $TRAVIS_BUILD_DIR/fastboot-$releaseName.zip'
 deploy:
   provider: releases
   api_key:
     secure: >-
       u5ewz9jQArEs2Rpq7xOm9RzqWEMKE2asI4MPqT8vyOm+mcOp584QkDFkcOPSxl1YrYtLwPDfB3V+45VKJNruqJcHcWPoV15SSGQlawVnt+Gnl12S/g98wDmHBw+Wj1WTLtB1KJdM6nB9oQrfCOrG9UNcRbvPulKC0zIf5pifWYRIqKNxFk+txUygyIs8CszhvdiaPZNro1wsogxiazNvuJCjQ6cGZhADWXBIAMsZoDNmqxGBwypV+P/7yga0KX0mBsuxv2QTpmFKsmGyb3/1XB43SPhgrb6cBKMnn3ceWFOIxaiddeQ59pCkGzMg5lNNUqnXanIyzS/aVcZl2zsiyUsifTcnexxwFUHhdr31K1sNbJuPrKkBOS5VttVm6JWh+ubbnqnIrgwF6zKl8tnvwOq1SvML2xmwBAjVNGBXd251yjmtCy0x9in1dU0m4qbVfz2LWEhoGOkHVc8BsInicaXneFqlpREWxV4HbdsyF0cWJEPUNB+Ar6R84zvXZ/nlu8W1TneqaH9kcm5VYjwbLtlwtTOoMTmi3Gv52JIz1A0hWmoic96B4xewUgtDuGBJm2Lca1xpeZXwfXL0zMGYswExUAZfNePCyJiDI8ElvaFsOYQ9RP0gJhTMajN25BMDmd1P73h2IdcIk/54pE5Ol3bYJlTbykYlIEu+QZ24hZM=
   skip_cleanup: true
-  file:
-    - $TRAVIS_BUILD_DIR/twrp-$releaseName.zip
-    - $TRAVIS_BUILD_DIR/fastboot-$releaseName.zip
   tag_name: $releaseName
   on:
     repo: 0reo27/Mi-A1-OTA-to-TWRP
+after_deploy:
+  - ./uploadRelease.sh github_api_token=$oauthToken owner=0reo27 repo=Mi-A1-OTA-to-TWRP tag=$releaseName filename=$TRAVIS_BUILD_DIR/twrp-$releaseName.zip
+  - ./uploadRelease.sh github_api_token=$oauthToken owner=0reo27 repo=Mi-A1-OTA-to-TWRP tag=$releaseName filename=$TRAVIS_BUILD_DIR/fastboot-$releaseName.zip
 notifications:
   email: false
