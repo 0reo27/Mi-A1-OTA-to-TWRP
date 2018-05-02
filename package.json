@@ -1,0 +1,22 @@
+{
+  "name": "mi-a1-ota-to-twrp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0reo27/Mi-A1-OTA-to-TWRP.git"
+  },
+  "author": "0reo27",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/0reo27/Mi-A1-OTA-to-TWRP/issues"
+  },
+  "homepage": "https://github.com/0reo27/Mi-A1-OTA-to-TWRP#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
