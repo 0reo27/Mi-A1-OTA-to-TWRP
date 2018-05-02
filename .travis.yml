@@ -55,6 +55,7 @@ deploy:
   on:
     repo: 0reo27/Mi-A1-OTA-to-TWRP
 after_deploy:
+  - chmod u+x ./uploadRelease.sh
   - ./uploadRelease.sh github_api_token=$oauthToken owner=0reo27 repo=Mi-A1-OTA-to-TWRP tag=$releaseName filename=$TRAVIS_BUILD_DIR/twrp-$releaseName.zip
   - ./uploadRelease.sh github_api_token=$oauthToken owner=0reo27 repo=Mi-A1-OTA-to-TWRP tag=$releaseName filename=$TRAVIS_BUILD_DIR/fastboot-$releaseName.zip
 notifications:
