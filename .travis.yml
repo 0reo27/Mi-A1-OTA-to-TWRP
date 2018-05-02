@@ -1,4 +1,4 @@
-language: generic
+language: android
 dist: trusty
 sudo: required
 env:
