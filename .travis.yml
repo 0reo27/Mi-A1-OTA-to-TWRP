@@ -11,14 +11,15 @@ before_script:
   - sudo apt-get update
   - sudo apt-get upgrade
   - sudo apt-get install -y python3.6
-  - sudo apt-get -y install python-pip
+  - curl -O https://bootstrap.pypa.io/get-pip.py
+  - python3.6 get-pip.py
   - python3.6 -m pip install google
   - python3.6 -m pip install protobuf
   
 script:
   - cd $TRAVIS_BUILD_DIR
   - time curl -O $otaLink
-  - unzip $otaFileName.zip
+  - unzip $otaFileName.zip -d $otaFileName
   - python3.6 otaExtractScript/payload_dumper.py $otaFileName/payload.bin
   - cd otaExtractScript
   - ls -l
