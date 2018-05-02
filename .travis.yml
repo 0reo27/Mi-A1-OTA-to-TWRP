@@ -24,7 +24,7 @@ script:
   - cd otaExtractedFiles
   - >-
     python3.6 $TRAVIS_BUILD_DIR/otaExtractScript/payload_dumper.py
-    extractedZip/payload.bin
+    $TRAVIS_BUILD_DIR/extractedZip/payload.bin
   - >-
     zip -ur "$TRAVIS_BUILD_DIR/TWRP Update Template v2.zip"
     $TRAVIS_BUILD_DIR/otaExtractedFiles/*
