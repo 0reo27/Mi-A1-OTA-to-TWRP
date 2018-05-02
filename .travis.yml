@@ -12,9 +12,9 @@ before_script:
   - sudo apt-get upgrade
   - sudo apt-get install -y python3.6
   - curl -O https://bootstrap.pypa.io/get-pip.py
-  - python3.6 get-pip.py
-  - python3.6 -m pip install google
-  - python3.6 -m pip install protobuf
+  - sudo python3.6 get-pip.py
+  - python3.6 -m pip install --user google
+  - python3.6 -m pip install --user protobuf
   
 script:
   - cd $TRAVIS_BUILD_DIR
