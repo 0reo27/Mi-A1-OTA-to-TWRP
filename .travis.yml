@@ -48,6 +48,7 @@ deploy:
   file:
     - $TRAVIS_BUILD_DIR/twrp-$releaseName.zip
     - $TRAVIS_BUILD_DIR/fastboot-$releaseName.zip
+  tag_name: $releaseName
   on:
     repo: 0reo27/Mi-A1-OTA-to-TWRP
 notifications:
