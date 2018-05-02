@@ -1,3 +1,5 @@
+sudo: required
+dist: trusty
 language: node_js
 node_js:
   - lts/*
@@ -7,7 +9,10 @@ env:
       otaLink=https://bigota.d.miui.com/8.4.28/miui_TISSOT_8.4.28_201ca5f229_8.1.zip
     - otaFileName=miui_TISSOT_8.4.28_201ca5f229_8.1
 before_script:
-
+  - 'echo | sudo add-apt-repository ppa:deadsnakes/ppa'
+  - sudo apt-get update
+  - sudo apt-get upgrade
+  - sudo apt-get install -y python3.6
   - pip install protobuf
 script:
   - curl -O $otaLink
