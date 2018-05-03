@@ -30,7 +30,7 @@ script:
   - >-
     python3.6 $TRAVIS_BUILD_DIR/otaExtractScript/payload_dumper.py
     $TRAVIS_BUILD_DIR/extractedZip/payload.bin
-  - zip fastboot-$releaseName.zip boot.img modem.img system.img
+  - zip fastboot-$releaseName.zip boot.img modem.img system.img '$TRAVIS_BUILD_DIR/Flash Extracted OTA.bat'
   - mv fastboot-$releaseName.zip $TRAVIS_BUILD_DIR/fastboot-$releaseName.zip
   - >-
     zip -ur "$TRAVIS_BUILD_DIR/TWRP Update Template v2.zip"
