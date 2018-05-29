@@ -26,8 +26,7 @@ script:
   - export otaFileName="db9190392239d80aea36db684b14de1c169d3a1e.zip"
   - export releaseName="9.5.13"
   - cd $TRAVIS_BUILD_DIR
-  - time curl -O $otaLink
-  - ls -l
+  - time curl -L $otaLink > $otaFileName
   - unzip $otaFileName -d extractedZip
   - mkdir -p 'otaExtractedFiles'
   - cd otaExtractedFiles
