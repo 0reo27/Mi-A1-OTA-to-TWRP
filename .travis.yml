@@ -15,7 +15,7 @@ before_script:
   - 'echo | sudo add-apt-repository ppa:deadsnakes/ppa'
   - sudo apt-get update
   - sudo apt-get upgrade
-  - sudo apt-get install -y python3.6
+  - sudo apt-get install -y --allow-unauthenticated python3.6
   - 'curl -O https://bootstrap.pypa.io/get-pip.py'
   - sudo python3.6 get-pip.py
   - python3.6 -m pip install --user google
