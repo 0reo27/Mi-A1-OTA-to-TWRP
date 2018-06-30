@@ -39,7 +39,7 @@ script:
   - mv fastboot-$releaseName.zip $TRAVIS_BUILD_DIR/fastboot-$releaseName.zip
   - >-
     zip -ur "$TRAVIS_BUILD_DIR/TWRP Update Template v2.zip"
-    $TRAVIS_BUILD_DIR/otaExtractedFiles/*
+    *
   - cd $TRAVIS_BUILD_DIR/otaExtractedFiles
   - ls -l
   - >-
